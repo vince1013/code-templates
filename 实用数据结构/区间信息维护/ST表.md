@@ -20,11 +20,12 @@ ST 表基于 `倍增` 思想，可以做到 $\Theta (nlogn)$ 预处理， $O(1)$
 ```cpp
 //第二维的长度设定为20，表示查询序列最多不超过2^20个数字，可按需求更改
 const gg Max2 = 20;
-vector<vector<gg>> st(Max, vector<gg>(Max2));
+//求最大值，ST表中所有元素初始化为INT_MIN
+vector<vector<gg>> st(Max, vector<gg>(Max2, INT_MIN));
 //初始化时默认将输入的所有数字a[i]读取到了st[i][0]的位置！！！
 void STinit() {
     for (gg j = 1; j <= Max2; ++j) {
-        for (gg i = 1; i + (1 << j) - 1 <= ni; ++i) {  // ni表示输入的数字个数
+        for (gg i = 1; i + (1 << j) - 1 <= ni; ++i) {
             st[i][j] = max(st[i][j - 1], st[i + (1 << (j - 1))][j - 1]);
         }
     }
