@@ -24,7 +24,7 @@ vector<vector<gg>> st(Max, vector<gg>(Max2));
 //初始化时默认将输入的所有数字a[i]读取到了st[i][0]的位置！！！
 void STinit() {
     for (gg j = 1; j <= Max2; ++j) {
-        for (gg i = 1; i + (1 << j) - 1 <= ni; ++i) {
+        for (gg i = 1; i + (1 << j) - 1 <= ni; ++i) {  // ni表示输入的数字个数
             st[i][j] = max(st[i][j - 1], st[i + (1 << (j - 1))][j - 1]);
         }
     }
