@@ -1,19 +1,23 @@
-typedef pair<gg, gg> pii;
+using agg2 = array<gg, 2>;
+struct Edge {
+    gg to, cost;
+    Edge(gg t, gg c) : to(t), cost(c) {}
+};
+vector<vector<Edge>> graph(MAX);
+vector<gg> dis(MAX, INT_MAX);
 void Dijkstra(gg s) {
-    priority_queue<pii, vector<pii>, greater<pii>>
-        pq;  // pii的first成员存储dis，second成员存储结点编号
-    fill(dis, dis + MAX, LONG_LONG_MAX);
+    priority_queue<agg2, vector<agg2>, greater<agg2>> pq;
     dis[s] = 0;
     pq.push({0, s});
     while (!pq.empty()) {
-        pii p = pq.top();
+        auto p = pq.top();
         pq.pop();
-        if (dis[p.second] != p.first)
+        if (dis[p[1]] != p[0]) {
             continue;
-        for (gg i : graph[p.second]) {
-            Edge& e = edges[i];
-            if (dis[e.to] > dis[p.second] + e.cost) {
-                dis[e.to] = dis[p.second] + e.cost;
+        }
+        for (auto& e : graph[p[1]]) {
+            if (dis[e.to] > p[0] + e.cost) {
+                dis[e.to] = p[0] + e.cost;
                 pq.push({dis[e.to], e.to});
             }
         }
